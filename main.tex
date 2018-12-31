@@ -1,0 +1,29 @@
+\documentclass[twocolumn]{report}
+\usepackage{subfiles}
+%{\fontsize{10}{15}}
+\usepackage{geometry}   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}% http://ctan.org/pkg/mathtools
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\geometry{letterpaper}  
+\usepackage{tabu}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage [english]{babel}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+%\setcounter{subfile}{1}
+
+\begin{document}
+\normalsize
+%\Large
+\subfile{intro.tex}
+\subfile{background.tex}
+\subfile{sec.tex}
+\subfile{pro.tex}
+\subfile{math.tex}
+\subfile{expr.tex}
+\end{document}

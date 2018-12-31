@@ -1,0 +1,43 @@
+\documentclass[main.tex]{subfiles}
+\begin{comment}
+\MakeOuterQuote{"}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\end{comment}
+\begin{document}
+%\begin{multicols}{2}[]
+\normalsize
+\begin{center}\section{Security Model}\end{center}
+
+Public Key Encryption $($PKE$)$ and Public Key Message Authentication $($PKMA$)$ schemes are two of the most significant and well studied cryptographic primitives. Traditionally, both notions are defined as non-interactive $($i.e., used for single messages$)$. Both the sender and receiver need not keep any state, such non-interactive "one$-$and$-$done" philosophy is also crucial in many applications. Joined with the fact that we now have many efficient candidates for both signature and encryption schemes, it might appear that there is limited benefit in prolonging the syntax of signature/encryption schemes to allow for possibly interactive realizations.\\
+The biggest disadvantage of non-interactive signatures is the fact that there is no interaction between the sender and the receiver. Hence, this works for a single message only which is very limited. To avoid this, a new scheme was proposed by \cite{dodis2014interactive} that assumes the presence of interaction between the sender and the receiver which is logical especially in the case where there is a conversation. This new scheme is "Interactive Encryption and Message Authentication" \cite{dodis2014interactive} \paragraph{} This interactive scheme offers some advanced security properties which are impossible to be achieved with the non-interactive schemes, Deniability and Forward Security.\begin{itemize}
+\item \textbf{\textit{Deniability:}} A Public Key Message Authentication protocol is deniable if the sender S can authenticate a message m to the receiver R in such a way that R cannot use the transcript of their conversation as evidence to later convince third parties about the fact that S took part in the protocol and authenticated m.
+\item \textbf{\textit{Forward Security:}} Forward security guarantees that any leak of secret information at some time t should not affect the security of protocol runs that occurred in the past, i.e., at any time $t' < t$. Forward security is a desirable property that is not known to be achieved by standard non-interactive public key encryption.
+\end{itemize}
+\paragraph{}
+We consider a problem that consists of an attacker "Alice" who already has breached a network and gained access to a machine controlled by a victim "Bob". Alice intends to exfiltrate data from Bob's machine to her machine via multiple $n$ channels. We assume that there is a watcher "Eve " who can read all the $n$ channels and block $b$ out of $n$ channels, where $b$ $\leq$ $(n-1)$.\paragraph{} To define our interactive security Model, we start by describing a \textbf{\textit{ Measured Matrix}} consisting of two matrices. 
+\begin{itemize}
+  \item \textbf{\textit{ Round Complexity:}} Which is the number of iterations that we should do to send $p$ packets over $n$ channels.  \item \textbf{\textit {Communication Complexity:}} Which is how many bits we transmit with respect to the size of the file that is intended to be transferred. 
+\end{itemize}
+\subsection{Security Properties}
+We define the security properties, \textbf{\textit{completeness}},  \textbf{\textit{unforgeability}} and \textbf{\textit{authenticity}}.
+\begin{itemize}
+
+  \item \textbf{\textit{Completeness:}} Is the property which guarantees that Alice will receive the complete file that she is trying to exfiltrate from Bob's machine.
+  \item \textbf{\textit{Unforgeability:}} Is the property which ensures that it's not possible for the adversary to forge a packet and send it to Alice as if it were coming from Bob. In other words, \textbf{\textit{Unforgeability}} guarantees that Bob will not be fooled by the adversary.
+  \item \textbf{\textit{Authenticity:}} Is the property which guarantees that Alice will receive messages from Bob only.
+  
+  
+\end{itemize}
+The watcher Eve  changes the content of the communication channels with various objectives that include:
+\begin{enumerate}
+\item Deleting a packet so that Bob never receives it. Thus, preventing communication between Alice and Bob, censorship;
+\item Inserting a new packet invented by Eve  and send it to Alice wishing she will consider it authentic, forgeability;
+\item Changing the order of packets sent through the channels.
+\end{enumerate}
+\subsection{Protocol Proposal}
+The proposed protocol is an innovative exfiltration technique that uses $n$ covert channels to exfiltrate files from a controlled machine to a controlled server. The aim of this protocol is to guarantee that the attacker will receive complete and unforgeable data that he is trying to exfiltrate even in the presence of a watcher who is trying to stop the flow of data.
+%\end{multicols}
+
+\end{document}   
+

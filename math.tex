@@ -1,0 +1,96 @@
+\documentclass[main.tex]{subfiles}
+\begin{comment}
+\usepackage{geometry}   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}% http://ctan.org/pkg/mathtools
+\MakeOuterQuote{"}
+%\newcommand\tab[1][1cm]{\hspace*{#1}}
+\geometry{letterpaper}   
+\usepackage{tabu}
+\usepackage{verbatim}
+\usepackage [english]{babel}
+%\usepackage{multicol}
+%\setlength{\columnsep}{1cm}
+
+\end{comment}
+
+\begin{document}
+%\Large
+\normalsize
+%\begin{multicols}{2}[]
+\begin{center}\section{Mathematical Logic}\end{center}
+To understand better how the protocol is working, we derived two equations that will explain the \textbf{\textit{security models}}:
+\begin{enumerate}
+\item First equation will explain the \textbf{\textit{round complexity}} of the best, average and the worst case scenarios.
+\item Second equation will explain the \textbf{\textit{communication complexity}}.
+\end{enumerate}
+\textbf{\textit{Round Complexity}}: Is defined as the number of rounds it takes the protocol to send $p$ packets over $n$ channels.
+\\
+Let $n = $ total number of channels\\
+Let $b = $ number of bad/corrupted channels\\
+Let $p = $ number of packets to be sent\\
+Let $q = $ max number of rounds\\
+Consider $p = n$ for simplicity\\
+Assume always $b < n$\\
+General form of $b:$ 
+$b= c \times n$ Where $c$ is the fraction of corrupted channels out of $n$.\\
+
+Examples of the form of $b$: \begin{center}$b = \displaystyle \frac{2}{3}n$, \tab$b = \displaystyle \frac{3}{4}n$, \tab$b = \displaystyle \frac{1}{2}n$\end{center}
+
+As an example, assume the total number of channels $n=~10$, the total number of packets to send $p = 10$, the number of corrupted channels is $b=5$. So, $b = \frac{1}{2}n$. \\
+
+In the best case scenario:
+\begin{itemize}
+\item In round $1$, we expect $\frac{1}{2}$ of the total packets to be delivered.
+\item In round $2$, we expect the other $\frac{1}{2}$ of the packets to be correctly delivered.
+\end{itemize}
+According to that, we can derive the equation of the best case scenario:\\
+\#packets correctly delivered after $q$ rounds =\begin{equation} \frac{p}{n-q}\end{equation}
+
+In the worst case scenario:
+\begin{itemize}
+\item In round $1$, we expect $\frac{1}{2}$ of the total packets to be delivered.
+\item In round $2$, we expect $\frac{1}{2}$ of the remaining packets to be correctly delivered.
+\item In round $3$, we expect $\frac{1}{2}$ of the remaining packets to be correctly delivered.
+\end{itemize}
+Based on this, we deduce the \#packets that are correctly received in each round to be:
+\begin{itemize}
+\item \textbf{\textit{Round $\#1$}}: \( \displaystyle (n - nc)\) packets, which translates to half of the packets are correctly delivered.
+\item \textbf{\textit{Round $\#2$}}: \( \displaystyle (nc - nc^2)\) packets, which translates to half of the remaining packets will be correctly delivered.
+\item \textbf{\textit{Round $\#3$}}: \( \displaystyle (nc^2  - nc^3)\) packets, which translates to half of the remaining packets will be correctly delivered.
+\item \textbf{\textit{Round $\#q$}}: \( \displaystyle (nc^{(q-1)} - nc^q)\) packets, as this is the final round, all the remaining packets will be delivered in this round.
+\end{itemize}
+According to that, we can derive the equation:\\
+\#packets correctly delivered after $q$ rounds =\begin{equation}  \sum_{i=1}^{q} [(1-c) \times c^{(i-1)} \times n]\end{equation}
+
+Now, in the case where $p > n$. Then, the general form of $p$ will be: $p = m \times n + r$\\
+Where $m$ is the coefficient and $r$ is the remainder.\\
+Examples of the form of $p$:
+\begin{center}$p = \displaystyle 4n + 2$, \tab$p = \displaystyle 3n + 5$, \tab$p = \displaystyle 17n + 2$\end{center}
+In this case, the general form of the equation will become:\\
+ \#packets correctly delivered after q rounds =\begin{equation} m[ \sum_{i=1}^{q} [(1-c) \times c^{(i-1)} \times n]] + \sum_{i=\frac{n}{r}}^{q} [(1-c) \times c^{(i-1)} \times n]\end{equation}
+ \paragraph{}
+ In the case where $r = 0$. Then the equation will become:\\
+  \#packets correctly delivered after q rounds  =\begin{equation} m[ \sum_{i=1}^{q} [(1-c) \times c^{(i-1)} \times n]]\end{equation}
+ \paragraph{}
+\textbf{\textit{Note}}: The above equation assumes that the watcher will always corrupt the maximum number of packets. In other words, this equation calculates the \#packets of packets correctly delivered over each round in the worst case scenario.
+\paragraph{}
+The average case scenario:
+\begin{equation} average = \frac{best + worst}{2}\end{equation}
+\paragraph{}
+\textbf{\textit{Communication Complexity}}: Is defined as the total number of bytes we're sending in order to deliver the complete file with respect to the number of bytes of the file. \\
+Let $n = $ The total number of channels.\\
+Let $s = $ The size of the packet.\\
+Let $r = $ The total number of rounds.\\
+let $f = $ The file size.\\
+
+The Communication complexity equation is: \begin{equation} cc = n \times s \times r \end{equation}
+
+Also, we define the efficiency of the protocol which is:
+\begin{equation}
+\epsilon = \frac{f}{cc} \times 100 
+\end{equation}
+%\end{multicols}
+\end{document}
